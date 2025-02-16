@@ -3,7 +3,7 @@
 run "npm init -y" 
     node package manager 
     init - initalize 
-    option y skips ssetup questions 
+    option y skips setup questions 
 create your package.json file 
 
     create a git repo 

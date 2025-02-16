@@ -22,11 +22,22 @@ db.connect((err) => {
     console.log('Connected to the MySQL database.');
 });
 
+const query = 'SELECT * FROM tasks';
+//every query needs a db.connect function to 
+//run it and send request to client 
+//query is the client talking to API to sumit a request
+//db.connect is the response 
+//after every query and db use postman to test API
+//creating new tasks
+//reading one or several tasks 
+//modify a task - change title, descrip. or status
+//delete a task 
+
 app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.send("hello!!!");
+    res.send("BYE BYE BYE!");
 });
 
 app.listen(port, () => {
