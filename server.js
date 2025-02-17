@@ -19,7 +19,7 @@ db.connect((err) => {
         console.error('Error connecting to the database:', err);
         return;
     }
-    console.log('Connected to the MySQL database.');
+    console.log('WASSSZZUUUPP QUE XXOPA!! SAK PASE!!.');
 });
 
 
@@ -39,6 +39,12 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.send("BYE BYE BYE!");
 });
+
+app.get('/users', (req,res)=>{
+    res.send('users page');
+    console.log('users page');
+});
+
 app.get("/tasks", (req, res)=>{
     const query ="SELECT * FROM tasks"
     
@@ -48,12 +54,30 @@ app.get("/tasks", (req, res)=>{
          console.log(err);
          res.status(500).json({error: 'error getting results'});
        } else {
-         res.json(results);
+        console.log(data[0]);
+        res.json(results);
        }
     })
 })
+
+app.post('/tasks', (req,res)=>{
+    const params = [req.body['completed'], req.body['description'], req.body['title']];
+    const query = 'INSERT INTO  tasks (title, description, completed) VALUES(?,?,?);'
+    db.query (query,params, (err,data)=>{
+        if (err){
+            console.error('could not complete task:',err);
+            console.log('could not add the task');
+            res.status(500).json({error: 'Error completing taks'});}
+        else{ 
+            console.log(data);
+            res.json({message: 'Task Successful'});
+            res.status(200);
+
+        }
+    })
+})
 app.listen(port, () => {
-    console.log("express server running on port 3306");
+    console.log("YURP it's working");
 });
 
 
