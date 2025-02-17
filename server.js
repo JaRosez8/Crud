@@ -6,12 +6,12 @@ import dotenv from 'dotenv/config';
 
 
 const app = express();
-const port = 3000;
+const port = 3306;
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    host: 'thresholds-test.mysql.databse.azure.com',
+    username: process.env.username,
+    password: process.env.password,
+    database: process.env.database
 });
 
 db.connect((err) => {
@@ -22,7 +22,7 @@ db.connect((err) => {
     console.log('Connected to the MySQL database.');
 });
 
-const query = 'SELECT * FROM tasks';
+
 //every query needs a db.connect function to 
 //run it and send request to client 
 //query is the client talking to API to sumit a request
@@ -39,9 +39,21 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.send("BYE BYE BYE!");
 });
-
+app.get("/tasks", (req, res)=>{
+    const query ="SELECT * FROM tasks"
+    
+    db.query(query,(err,data)=>{
+       if(err){
+         console.log("Nope Try AGAINT");
+         console.log(err);
+         res.status(500).json({error: 'error getting results'});
+       } else {
+         res.json(results);
+       }
+    })
+})
 app.listen(port, () => {
-    console.log("express server running on port 3000");
+    console.log("express server running on port 3306");
 });
 
 
